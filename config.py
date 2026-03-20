@@ -73,7 +73,7 @@ class Config:
     SESSION_SECRET = os.getenv("SESSION_SECRET", "sentbe-camp-secret-change-me")
 
     # Database
-    DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///camp.db")
+    DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:////data/camp.db")
 
     # Camp info
     CAMP_NAME = os.getenv("CAMP_NAME", "Sentbe AI Native Camp")
