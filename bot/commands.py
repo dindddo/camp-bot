@@ -104,9 +104,13 @@ def register_commands(app: App):
         # AI 공지 작성 모드
         respond("🤖 AI가 공지문을 작성 중입니다...")
 
-        content = asyncio.get_event_loop().run_until_complete(
-            generate_announcement(text)
-        )
+        loop = asyncio.new_event_loop()
+        try:
+            content = loop.run_until_complete(
+                generate_announcement(text)
+            )
+        finally:
+            loop.close()
 
         respond(
             blocks=[
