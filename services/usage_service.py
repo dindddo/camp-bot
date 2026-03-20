@@ -123,11 +123,15 @@ def get_leaderboard(date_filter: str | None = None) -> list[dict]:
         # 참가자 정보 매핑
         participants = {p.id: p for p in db.query(Participant).all()}
 
+        # Usage가 있는 참가자 ID 수집
+        seen_ids = set()
+
         leaderboard = []
         for row in results:
             p = participants.get(row.participant_id)
             if not p:
                 continue
+            seen_ids.add(row.participant_id)
             total = row.total_tokens or 0
             leaderboard.append({
                 "rank": 0,  # 아래에서 채움
@@ -141,6 +145,23 @@ def get_leaderboard(date_filter: str | None = None) -> list[dict]:
                 "total_cost": (row.total_cost or 0) / 100,  # cents → dollars
                 "level": _get_level(total),
             })
+
+        # Usage가 없는 참가자도 누적 리더보드에 표시
+        if not date_filter:
+            for p in participants.values():
+                if p.id not in seen_ids and p.role == "participant":
+                    leaderboard.append({
+                        "rank": 0,
+                        "participant_id": p.id,
+                        "name": p.name,
+                        "team": p.team or "",
+                        "role": p.role,
+                        "total_tokens": 0,
+                        "io_tokens": 0,
+                        "cache_tokens": 0,
+                        "total_cost": 0,
+                        "level": _get_level(0),
+                    })
 
         for i, entry in enumerate(leaderboard):
             entry["rank"] = i + 1
