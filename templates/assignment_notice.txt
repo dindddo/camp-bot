@@ -1,0 +1,14 @@
+📝 과제 안내
+
+안녕하세요, {camp_name} 참가자 여러분!
+
+🎯 **과제 정보**
+• 과제명: {assignment_name}
+• 마감일: {deadline}
+• 제출 방법: {submission_method}
+
+📋 **과제 설명**
+{description}
+
+❓ 질문이 있으시면 이 스레드에 남겨주세요!
+마감일을 꼭 확인해주세요. 화이팅! 🚀

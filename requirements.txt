@@ -1,0 +1,12 @@
+slack-bolt==1.21.3
+slack-sdk==3.33.5
+fastapi==0.115.6
+uvicorn==0.34.0
+jinja2==3.1.4
+anthropic==0.42.0
+apscheduler==3.10.4
+sqlalchemy==2.0.36
+aiosqlite==0.20.0
+python-dotenv==1.0.1
+httpx==0.28.1
+itsdangerous==2.2.0

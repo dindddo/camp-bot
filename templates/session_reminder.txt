@@ -1,0 +1,13 @@
+🔔 세션 리마인더
+
+안녕하세요, {camp_name} 참가자 여러분!
+
+📅 **오늘의 세션 안내**
+• 주제: {session_topic}
+• 시간: {session_time}
+• 장소: {session_location}
+
+📝 **사전 준비사항**
+{preparation}
+
+오늘도 함께 성장해봐요! 💪

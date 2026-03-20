@@ -1,0 +1,593 @@
+{% extends "base.html" %}
+
+{% block title %}코스 · {{ camp_name }}{% endblock %}
+{% block nav_course %}!text-white font-medium{% endblock %}
+
+{% block head %}
+<style>
+    .cmd-box { position: relative; }
+    .cmd-box:hover .copy-btn { opacity: 1; }
+    .copy-btn { opacity: 0; transition: opacity 0.15s; }
+    .block-toggle-content { display: none; }
+    .block-toggle-content.open { display: block; }
+    .doc-link { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 6px; font-size: 11px; color: #818cf8; background: rgba(99,102,241,0.08); border: 1px solid rgba(99,102,241,0.15); transition: all 0.15s; text-decoration: none; }
+    .doc-link:hover { background: rgba(99,102,241,0.15); color: #a5b4fc; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="text-center pt-8 pb-10">
+    <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight mb-3">코스</h1>
+    <p class="text-gray-400 text-lg">4일 만에 Claude Code를 마스터하세요</p>
+    <p class="text-xs text-gray-600 mt-2">명령어를 클릭하면 복사됩니다</p>
+</div>
+
+<!-- ═══════════════ Day 1 ═══════════════ -->
+<div class="glass rounded-2xl overflow-hidden mb-8">
+    <div class="p-6 lg:p-8">
+        <div class="flex items-start gap-4 mb-2">
+            <div class="w-12 h-12 rounded-xl bg-accent-500 text-white flex items-center justify-center text-lg font-bold shrink-0">1</div>
+            <div>
+                <h2 class="text-xl font-bold">같이 시작합니다</h2>
+                <p class="text-sm text-gray-400 mt-1">Claude Code를 설치하고 첫 대화를 나눠보세요</p>
+                <div class="flex items-center gap-3 mt-2 text-xs text-gray-500">
+                    <span>📅 {{ schedule[0].date }}{% if schedule[0].date_end %} ~ {{ schedule[0].date_end }}{% endif %}</span>
+                    <span>⏱ ~4시간</span>
+                    <span>💻 온라인</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 시작 명령어 -->
+        <div class="mt-6 mb-6 p-4 rounded-xl bg-accent-500/5 border border-accent-500/20">
+            <p class="text-xs font-semibold text-accent-400 mb-2">🚀 Day 1 시작하기</p>
+            <div class="cmd-box">
+                <pre class="bg-dark-950 rounded-lg px-4 py-3 text-sm text-green-400 font-mono cursor-pointer hover:bg-dark-900 transition-colors" onclick="copyCmd(this)">/day1-onboarding</pre>
+                <button class="copy-btn absolute top-2 right-2 px-2 py-1 text-[10px] bg-white/10 text-gray-400 rounded">복사</button>
+            </div>
+        </div>
+
+        <div class="space-y-4">
+            <!-- Block 0 -->
+            <div class="border border-white/5 rounded-xl overflow-hidden">
+                <button onclick="toggleBlock(this)" class="w-full px-4 py-3 flex items-center justify-between hover:bg-white/[0.02] transition-colors">
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs px-1.5 py-0.5 rounded bg-white/5 text-gray-400 font-mono">Block 0</span>
+                        <span class="text-sm font-medium text-gray-200">셋업 — Claude Code 설치 + 에디터 연결</span>
+                    </div>
+                    <span class="text-gray-500 text-xs">▼</span>
+                </button>
+                <div class="block-toggle-content px-4 pb-4 space-y-2">
+                    <div class="flex flex-wrap gap-1.5 mb-3">
+                        <a href="https://code.claude.com/docs/ko/setup" target="_blank" class="doc-link">📖 설치 가이드</a>
+                        <a href="https://code.claude.com/docs/ko/quickstart" target="_blank" class="doc-link">📖 빠른 시작</a>
+                    </div>
+                    <p class="text-xs text-gray-500 mb-3">Claude Code를 설치하고 기본 환경을 구성합니다.</p>
+                    <div class="cmd-box"><pre class="bg-dark-950 rounded-lg px-4 py-2 text-sm text-green-400 font-mono cursor-pointer hover:bg-dark-900 transition-colors" onclick="copyCmd(this)">claude</pre><button class="copy-btn absolute top-1.5 right-2 px-2 py-0.5 text-[10px] bg-white/10 text-gray-400 rounded">복사</button></div>
+                    <p class="text-[11px] text-gray-600">▲ 터미널에서 실행하여 Claude Code 시작</p>
+                    <div class="cmd-box"><pre class="bg-dark-950 rounded-lg px-4 py-2 text-sm text-green-400 font-mono cursor-pointer hover:bg-dark-900 transition-colors" onclick="copyCmd(this)">/output-style</pre><button class="copy-btn absolute top-1.5 right-2 px-2 py-0.5 text-[10px] bg-white/10 text-gray-400 rounded">복사</button></div>
+                    <p class="text-[11px] text-gray-600">▲ 출력 스타일을 Explanatory 모드로 설정</p>
+                </div>
+            </div>
+
+            <!-- Block 1 -->
+            <div class="border border-white/5 rounded-xl overflow-hidden">
+                <button onclick="toggleBlock(this)" class="w-full px-4 py-3 flex items-center justify-between hover:bg-white/[0.02] transition-colors">
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs px-1.5 py-0.5 rounded bg-white/5 text-gray-400 font-mono">Block 1</span>
+                        <span class="text-sm font-medium text-gray-200">체험하기 — Working Backward 데모 3가지</span>
+                    </div>
+                    <span class="text-gray-500 text-xs">▼</span>
+                </button>
+                <div class="block-toggle-content px-4 pb-4">
+                    <div class="flex flex-wrap gap-1.5 mb-2">
+                        <a href="https://code.claude.com/docs/ko/quickstart" target="_blank" class="doc-link">📖 빠른 시작 튜토리얼</a>
+                    </div>
+                    <p class="text-xs text-gray-500">완성된 결과물부터 역으로 따라가면서 Claude Code의 가능성을 체험합니다. 3가지 데모를 직접 보고 실행해봅니다.</p>
+                </div>
+            </div>
+
+            <!-- Block 2 -->
+            <div class="border border-white/5 rounded-xl overflow-hidden">
+                <button onclick="toggleBlock(this)" class="w-full px-4 py-3 flex items-center justify-between hover:bg-white/[0.02] transition-colors">
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs px-1.5 py-0.5 rounded bg-white/5 text-gray-400 font-mono">Block 2</span>
+                        <span class="text-sm font-medium text-gray-200">왜 CLI인가 — 터미널의 힘</span>
+                    </div>
+                    <span class="text-gray-500 text-xs">▼</span>
+                </button>
+                <div class="block-toggle-content px-4 pb-4">
+                    <div class="flex flex-wrap gap-1.5 mb-2">
+                        <a href="https://code.claude.com/docs/ko/how-claude-code-works#%EC%97%90%EC%9D%B4%EC%A0%84%ED%8A%B8-%EB%A3%A8%ED%94%84" target="_blank" class="doc-link">📖 에이전트 루프 작동 원리</a>
+                    </div>
+                    <p class="text-xs text-gray-500">왜 채팅 UI가 아닌 터미널(CLI)인지 이해합니다. CLI가 AI와 협업할 때 갖는 장점을 배웁니다.</p>
+                </div>
+            </div>
+
+            <!-- Block 3 -->
+            <div class="border border-white/5 rounded-xl overflow-hidden">
+                <button onclick="toggleBlock(this)" class="w-full px-4 py-3 flex items-center justify-between hover:bg-white/[0.02] transition-colors">
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs px-1.5 py-0.5 rounded bg-white/5 text-gray-400 font-mono">Block 3</span>
+                        <span class="text-sm font-medium text-gray-200">핵심 기능 7가지 — Memory, Git, Agent, Plugin 등</span>
+                    </div>
+                    <span class="text-gray-500 text-xs">▼</span>
+                </button>
+                <div class="block-toggle-content px-4 pb-4 space-y-3">
+                    <div class="flex flex-wrap gap-1.5 mb-2">
+                        <a href="https://code.claude.com/docs/ko/memory" target="_blank" class="doc-link">📖 Memory</a>
+                        <a href="https://code.claude.com/docs/ko/skills" target="_blank" class="doc-link">📖 Skills</a>
+                        <a href="https://code.claude.com/docs/ko/mcp" target="_blank" class="doc-link">📖 MCP</a>
+                        <a href="https://code.claude.com/docs/ko/sub-agents" target="_blank" class="doc-link">📖 Sub-agents</a>
+                        <a href="https://code.claude.com/docs/ko/agent-teams" target="_blank" class="doc-link">📖 Agent Teams</a>
+                        <a href="https://code.claude.com/docs/ko/hooks-guide" target="_blank" class="doc-link">📖 Hooks</a>
+                        <a href="https://code.claude.com/docs/ko/plugins" target="_blank" class="doc-link">📖 Plugins</a>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-3">
+                        <div class="p-2 rounded-lg bg-white/[0.02] border border-white/5">
+                            <p class="text-xs font-medium text-gray-300">3-1. Memory</p>
+                            <p class="text-[11px] text-gray-500">CLAUDE.md + Auto Memory</p>
+                        </div>
+                        <div class="p-2 rounded-lg bg-white/[0.02] border border-white/5">
+                            <p class="text-xs font-medium text-gray-300">3-2. Skill</p>
+                            <p class="text-[11px] text-gray-500">Claude에게 작업 방법 가르치기</p>
+                        </div>
+                        <div class="p-2 rounded-lg bg-white/[0.02] border border-white/5">
+                            <p class="text-xs font-medium text-gray-300">3-3. MCP</p>
+                            <p class="text-[11px] text-gray-500">외부 도구 연결 프로토콜</p>
+                        </div>
+                        <div class="p-2 rounded-lg bg-white/[0.02] border border-white/5">
+                            <p class="text-xs font-medium text-gray-300">3-4. Subagent</p>
+                            <p class="text-[11px] text-gray-500">Claude가 Claude를 부르기</p>
+                        </div>
+                        <div class="p-2 rounded-lg bg-white/[0.02] border border-white/5">
+                            <p class="text-xs font-medium text-gray-300">3-5. Agent Teams</p>
+                            <p class="text-[11px] text-gray-500">여러 에이전트 동시 실행</p>
+                        </div>
+                        <div class="p-2 rounded-lg bg-white/[0.02] border border-white/5">
+                            <p class="text-xs font-medium text-gray-300">3-6. Hook</p>
+                            <p class="text-[11px] text-gray-500">자동 실행 트리거</p>
+                        </div>
+                        <div class="p-2 rounded-lg bg-white/[0.02] border border-white/5">
+                            <p class="text-xs font-medium text-gray-300">3-7. Plugin</p>
+                            <p class="text-[11px] text-gray-500">Skill+MCP+Hook 패키지</p>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-400 font-medium mb-1">주요 명령어</p>
+                    <div class="cmd-box"><pre class="bg-dark-950 rounded-lg px-4 py-2 text-sm text-green-400 font-mono cursor-pointer hover:bg-dark-900 transition-colors" onclick="copyCmd(this)">/init</pre><button class="copy-btn absolute top-1.5 right-2 px-2 py-0.5 text-[10px] bg-white/10 text-gray-400 rounded">복사</button></div>
+                    <p class="text-[11px] text-gray-600">▲ CLAUDE.md 자동 생성</p>
+                    <div class="cmd-box"><pre class="bg-dark-950 rounded-lg px-4 py-2 text-sm text-green-400 font-mono cursor-pointer hover:bg-dark-900 transition-colors" onclick="copyCmd(this)">/memory</pre><button class="copy-btn absolute top-1.5 right-2 px-2 py-0.5 text-[10px] bg-white/10 text-gray-400 rounded">복사</button></div>
+                    <p class="text-[11px] text-gray-600">▲ 메모리 파일 열기 (CLAUDE.md + Auto Memory)</p>
+                    <div class="cmd-box"><pre class="bg-dark-950 rounded-lg px-4 py-2 text-sm text-green-400 font-mono cursor-pointer hover:bg-dark-900 transition-colors" onclick="copyCmd(this)">/plugin</pre><button class="copy-btn absolute top-1.5 right-2 px-2 py-0.5 text-[10px] bg-white/10 text-gray-400 rounded">복사</button></div>
+                    <p class="text-[11px] text-gray-600">▲ 플러그인 브라우저 열기</p>
+                    <div class="cmd-box"><pre class="bg-dark-950 rounded-lg px-4 py-2 text-sm text-green-400 font-mono cursor-pointer hover:bg-dark-900 transition-colors" onclick="copyCmd(this)">/plugin marketplace add team-attention/plugins-for-claude-natives</pre><button class="copy-btn absolute top-1.5 right-2 px-2 py-0.5 text-[10px] bg-white/10 text-gray-400 rounded">복사</button></div>
+                    <p class="text-[11px] text-gray-600">▲ AI Native Camp 마켓플레이스 등록</p>
+                </div>
+            </div>
+
+            <!-- Block 4 -->
+            <div class="border border-white/5 rounded-xl overflow-hidden">
+                <button onclick="toggleBlock(this)" class="w-full px-4 py-3 flex items-center justify-between hover:bg-white/[0.02] transition-colors">
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs px-1.5 py-0.5 rounded bg-white/5 text-gray-400 font-mono">Block 4</span>
+                        <span class="text-sm font-medium text-gray-200">기초 다지기 — CLI + Git + GitHub</span>
+                    </div>
+                    <span class="text-gray-500 text-xs">▼</span>
+                </button>
+                <div class="block-toggle-content px-4 pb-4">
+                    <div class="flex flex-wrap gap-1.5 mb-2">
+                        <a href="https://code.claude.com/docs/ko/cli-usage" target="_blank" class="doc-link">📖 CLI 사용법</a>
+                    </div>
+                    <p class="text-xs text-gray-500">터미널, Git, GitHub 기본기를 익힙니다. 퀴즈 3개로 마무리.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 과제 -->
+        <div class="mt-6 p-4 rounded-xl bg-amber-500/5 border border-amber-500/20">
+            <p class="text-xs font-semibold text-amber-400 mb-2">📝 Day 1 과제</p>
+            <ul class="text-xs text-gray-400 space-y-1">
+                <li>① CLAUDE.md 만들기 — Claude와 대화하며 나를 소개하는 문서 작성</li>
+                <li>② Claude에게 3번 질문하기 — 베스트 1개 골라서 채널에 공유</li>
+            </ul>
+            <div class="cmd-box mt-3"><pre class="bg-dark-950 rounded-lg px-4 py-2 text-xs text-green-400 font-mono cursor-pointer hover:bg-dark-900 transition-colors" onclick="copyCmd(this)">내 CLAUDE.md를 같이 만들자. 나는 [직업]이고, 주로 하는 일은 [업무]야. 이번 캠프에서 해결하고 싶은 과제는 [과제]야. 내가 선호하는 소통 방식이나 업무 스타일도 넣어줘.</pre><button class="copy-btn absolute top-1.5 right-2 px-2 py-0.5 text-[10px] bg-white/10 text-gray-400 rounded">복사</button></div>
+            <p class="text-[11px] text-gray-600 mt-1">▲ CLAUDE.md 작성용 프롬프트</p>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════ Day 2 ═══════════════ -->
+<div class="glass rounded-2xl overflow-hidden mb-8">
+    <div class="p-6 lg:p-8">
+        <div class="flex items-start gap-4 mb-2">
+            <div class="w-12 h-12 rounded-xl bg-accent-500 text-white flex items-center justify-center text-lg font-bold shrink-0">2</div>
+            <div>
+                <h2 class="text-xl font-bold">AI에게 내 맥락을 알려주세요</h2>
+                <p class="text-sm text-gray-400 mt-1">MCP로 일하는 도구를 AI와 연결하기</p>
+                <div class="flex items-center gap-3 mt-2 text-xs text-gray-500">
+                    <span>📅 {{ schedule[1].date }}</span>
+                    <span>⏱ ~3시간</span>
+                    <span>💻 온라인</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-6 mb-6 p-4 rounded-xl bg-accent-500/5 border border-accent-500/20">
+            <p class="text-xs font-semibold text-accent-400 mb-2">🚀 Day 2 시작하기</p>
+            <div class="cmd-box"><pre class="bg-dark-950 rounded-lg px-4 py-3 text-sm text-green-400 font-mono cursor-pointer hover:bg-dark-900 transition-colors" onclick="copyCmd(this)">/day2-mcp-and-context-sync</pre><button class="copy-btn absolute top-2 right-2 px-2 py-1 text-[10px] bg-white/10 text-gray-400 rounded">복사</button></div>
+        </div>
+
+        <div class="space-y-4">
+            <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Part A · MCP 딥다이브 (~60분)</p>
+
+            <div class="border border-white/5 rounded-xl overflow-hidden">
+                <button onclick="toggleBlock(this)" class="w-full px-4 py-3 flex items-center justify-between hover:bg-white/[0.02] transition-colors">
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs px-1.5 py-0.5 rounded bg-white/5 text-gray-400 font-mono">Block 0-1</span>
+                        <span class="text-sm font-medium text-gray-200">MCP 개념 + 서버 추가하기</span>
+                    </div>
+                    <span class="text-gray-500 text-xs">▼</span>
+                </button>
+                <div class="block-toggle-content px-4 pb-4 space-y-2">
+                    <div class="flex flex-wrap gap-1.5 mb-2">
+                        <a href="https://code.claude.com/docs/ko/mcp" target="_blank" class="doc-link">📖 MCP 공식 문서</a>
+                        <a href="https://modelcontextprotocol.io/introduction" target="_blank" class="doc-link">📖 MCP 오픈 표준 소개</a>
+                    </div>
+                    <p class="text-xs text-gray-500 mb-3">MCP = USB-C. 다양한 서비스를 하나의 규격으로 AI에 연결합니다.</p>
+                    <p class="text-xs text-gray-400 font-medium">HTTP 방식 (클라우드 서비스)</p>
+                    <div class="cmd-box"><pre class="bg-dark-950 rounded-lg px-4 py-2 text-xs text-green-400 font-mono cursor-pointer hover:bg-dark-900 transition-colors" onclick="copyCmd(this)">claude mcp add --transport http notion https://mcp.notion.com/mcp</pre><button class="copy-btn absolute top-1.5 right-2 px-2 py-0.5 text-[10px] bg-white/10 text-gray-400 rounded">복사</button></div>
+                    <p class="text-xs text-gray-400 font-medium mt-2">stdio 방식 (로컬 실행)</p>
+                    <div class="cmd-box"><pre class="bg-dark-950 rounded-lg px-4 py-2 text-xs text-green-400 font-mono cursor-pointer hover:bg-dark-900 transition-colors" onclick="copyCmd(this)">claude mcp add --transport stdio fetch -- npx -y @anthropic-ai/mcp-fetch@latest</pre><button class="copy-btn absolute top-1.5 right-2 px-2 py-0.5 text-[10px] bg-white/10 text-gray-400 rounded">복사</button></div>
+                    <p class="text-xs text-gray-400 font-medium mt-2">관리 명령어</p>
+                    <div class="cmd-box"><pre class="bg-dark-950 rounded-lg px-4 py-2 text-xs text-green-400 font-mono cursor-pointer hover:bg-dark-900 transition-colors" onclick="copyCmd(this)">claude mcp list</pre><button class="copy-btn absolute top-1.5 right-2 px-2 py-0.5 text-[10px] bg-white/10 text-gray-400 rounded">복사</button></div>
+                </div>
+            </div>
+
+            <div class="border border-white/5 rounded-xl overflow-hidden">
+                <button onclick="toggleBlock(this)" class="w-full px-4 py-3 flex items-center justify-between hover:bg-white/[0.02] transition-colors">
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs px-1.5 py-0.5 rounded bg-white/5 text-gray-400 font-mono">Block 2-3</span>
+                        <span class="text-sm font-medium text-gray-200">/mcp 명령어 탐색 + 인기 서버</span>
+                    </div>
+                    <span class="text-gray-500 text-xs">▼</span>
+                </button>
+                <div class="block-toggle-content px-4 pb-4 space-y-2">
+                    <div class="flex flex-wrap gap-1.5 mb-2">
+                        <a href="https://code.claude.com/docs/ko/mcp#popular-mcp-servers" target="_blank" class="doc-link">📖 인기 MCP 서버</a>
+                        <a href="https://github.com/modelcontextprotocol/servers/blob/main/README.md" target="_blank" class="doc-link">📖 MCP 서버 목록 (GitHub)</a>
+                        <a href="https://claude.ai/settings/connectors" target="_blank" class="doc-link">🔗 Connectors 설정</a>
+                    </div>
+                    <p class="text-xs text-gray-500">Claude Code 안에서 /mcp로 서버를 관리하고, 커뮤니티 인기 서버를 탐색합니다.</p>
+                </div>
+            </div>
+
+            <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider pt-2">Part B · Context Sync 스킬 만들기 (~110분)</p>
+
+            <div class="border border-white/5 rounded-xl overflow-hidden">
+                <button onclick="toggleBlock(this)" class="w-full px-4 py-3 flex items-center justify-between hover:bg-white/[0.02] transition-colors">
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs px-1.5 py-0.5 rounded bg-white/5 text-gray-400 font-mono">Block 5-10</span>
+                        <span class="text-sm font-medium text-gray-200">4개 도구를 4가지 방법으로 연결하기</span>
+                    </div>
+                    <span class="text-gray-500 text-xs">▼</span>
+                </button>
+                <div class="block-toggle-content px-4 pb-4 space-y-2">
+                    <div class="flex flex-wrap gap-1.5 mb-2">
+                        <a href="https://code.claude.com/docs/ko/sub-agents" target="_blank" class="doc-link">📖 Sub-agents</a>
+                        <a href="https://code.claude.com/docs/ko/plugins" target="_blank" class="doc-link">📖 Plugins</a>
+                        <a href="https://code.claude.com/docs/ko/discover-plugins" target="_blank" class="doc-link">📖 플러그인 마켓플레이스</a>
+                        <a href="https://mcp.notion.com" target="_blank" class="doc-link">🔗 Notion MCP</a>
+                    </div>
+                    <p class="text-xs text-gray-500 mb-3">스켈레톤의 STUB를 블록마다 하나씩 채우면서 연결 방법을 체득합니다.</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <div class="p-2 rounded-lg bg-white/[0.02] border border-white/5">
+                            <p class="text-xs font-medium text-gray-300">Block 6 · Slack</p>
+                            <p class="text-[11px] text-gray-500">UI 기반 (Connector)</p>
+                        </div>
+                        <div class="p-2 rounded-lg bg-white/[0.02] border border-white/5">
+                            <p class="text-xs font-medium text-gray-300">Block 7 · Notion</p>
+                            <p class="text-[11px] text-gray-500">CLI 등록 (claude mcp add)</p>
+                        </div>
+                        <div class="p-2 rounded-lg bg-white/[0.02] border border-white/5">
+                            <p class="text-xs font-medium text-gray-300">Block 8 · Linear</p>
+                            <p class="text-[11px] text-gray-500">공식 플러그인 (/plugin install)</p>
+                        </div>
+                        <div class="p-2 rounded-lg bg-white/[0.02] border border-white/5">
+                            <p class="text-xs font-medium text-gray-300">Block 9 · Calendar/Gmail</p>
+                            <p class="text-[11px] text-gray-500">커뮤니티 플러그인 (구조 분석)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-6 p-4 rounded-xl bg-amber-500/5 border border-amber-500/20">
+            <p class="text-xs font-semibold text-amber-400 mb-2">📝 Day 2 과제</p>
+            <ul class="text-xs text-gray-400 space-y-1">
+                <li>① 가장 먼저 연결한(하고 싶은) 도구 + 이유 공유</li>
+                <li>② 내가 최적화해서 쓰던 워크플로우가 있다면 소개</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════ Day 3 ═══════════════ -->
+<div class="glass rounded-2xl overflow-hidden mb-8">
+    <div class="p-6 lg:p-8">
+        <div class="flex items-start gap-4 mb-2">
+            <div class="w-12 h-12 rounded-xl bg-accent-500 text-white flex items-center justify-center text-lg font-bold shrink-0">3</div>
+            <div>
+                <h2 class="text-xl font-bold">내 머릿속을 AI가 이해하게</h2>
+                <p class="text-sm text-gray-400 mt-1">모호한 요청을 명확하게 만들기 + GitHub 첫 PR</p>
+                <div class="flex items-center gap-3 mt-2 text-xs text-gray-500">
+                    <span>📅 {{ schedule[2].date }}</span>
+                    <span>⏱ ~3시간</span>
+                    <span>💻 온라인</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-6 mb-6 p-4 rounded-xl bg-accent-500/5 border border-accent-500/20">
+            <p class="text-xs font-semibold text-accent-400 mb-2">🚀 Day 3 시작하기</p>
+            <div class="cmd-box"><pre class="bg-dark-950 rounded-lg px-4 py-3 text-sm text-green-400 font-mono cursor-pointer hover:bg-dark-900 transition-colors" onclick="copyCmd(this)">/day3-clarify</pre><button class="copy-btn absolute top-2 right-2 px-2 py-1 text-[10px] bg-white/10 text-gray-400 rounded">복사</button></div>
+        </div>
+
+        <div class="space-y-4">
+            <div class="border border-white/5 rounded-xl overflow-hidden">
+                <button onclick="toggleBlock(this)" class="w-full px-4 py-3 flex items-center justify-between hover:bg-white/[0.02] transition-colors">
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs px-1.5 py-0.5 rounded bg-white/5 text-gray-400 font-mono">Block 0</span>
+                        <span class="text-sm font-medium text-gray-200">Clarify 개념 + AskUserQuestion 체험</span>
+                    </div>
+                    <span class="text-gray-500 text-xs">▼</span>
+                </button>
+                <div class="block-toggle-content px-4 pb-4 space-y-2">
+                    <div class="flex flex-wrap gap-1.5 mb-2">
+                        <a href="https://code.claude.com/docs/ko/skills" target="_blank" class="doc-link">📖 Skills 문서</a>
+                        <a href="https://agentskills.io/what-are-skills" target="_blank" class="doc-link">📖 Skill이란?</a>
+                    </div>
+                    <p class="text-xs text-gray-500 mb-2">열린 질문 대신 가설을 선택지로 제시하는 "Hypothesis-as-Options" 원칙을 배웁니다.</p>
+                    <div class="cmd-box"><pre class="bg-dark-950 rounded-lg px-4 py-2 text-xs text-green-400 font-mono cursor-pointer hover:bg-dark-900 transition-colors" onclick="copyCmd(this)">나한테 오늘 저녁 뭐 먹을지 AskUserQuestion으로 물어봐. 가설 기반 선택지로 3개 질문해줘.</pre><button class="copy-btn absolute top-1.5 right-2 px-2 py-0.5 text-[10px] bg-white/10 text-gray-400 rounded">복사</button></div>
+                    <p class="text-[11px] text-gray-600">▲ AskUserQuestion 체험 프롬프트</p>
+                </div>
+            </div>
+
+            <div class="border border-white/5 rounded-xl overflow-hidden">
+                <button onclick="toggleBlock(this)" class="w-full px-4 py-3 flex items-center justify-between hover:bg-white/[0.02] transition-colors">
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs px-1.5 py-0.5 rounded bg-white/5 text-gray-400 font-mono">Block 1</span>
+                        <span class="text-sm font-medium text-gray-200">clarify:vague 체험 — 모호한 요구사항 명확화</span>
+                    </div>
+                    <span class="text-gray-500 text-xs">▼</span>
+                </button>
+                <div class="block-toggle-content px-4 pb-4">
+                    <p class="text-xs text-gray-500">Claude가 clarify:vague 프로토콜로 여러분의 모호한 요구사항을 명확하게 만들어줍니다. "clarify 받는 사람" 역할을 체험합니다.</p>
+                </div>
+            </div>
+
+            <div class="border border-white/5 rounded-xl overflow-hidden">
+                <button onclick="toggleBlock(this)" class="w-full px-4 py-3 flex items-center justify-between hover:bg-white/[0.02] transition-colors">
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs px-1.5 py-0.5 rounded bg-white/5 text-gray-400 font-mono">Block 2</span>
+                        <span class="text-sm font-medium text-gray-200">나만의 Clarify 스킬 만들기</span>
+                    </div>
+                    <span class="text-gray-500 text-xs">▼</span>
+                </button>
+                <div class="block-toggle-content px-4 pb-4 space-y-2">
+                    <div class="flex flex-wrap gap-1.5 mb-2">
+                        <a href="https://code.claude.com/docs/ko/skills" target="_blank" class="doc-link">📖 Skills 작성법</a>
+                        <a href="https://code.claude.com/docs/ko/plugins" target="_blank" class="doc-link">📖 Plugins 구조</a>
+                    </div>
+                    <p class="text-xs text-gray-500 mb-2">설치된 플러그인을 분석하고, 템플릿 기반으로 내 업무에 맞는 clarify 스킬을 만듭니다.</p>
+                    <div class="cmd-box"><pre class="bg-dark-950 rounded-lg px-4 py-2 text-xs text-green-400 font-mono cursor-pointer hover:bg-dark-900 transition-colors" onclick="copyCmd(this)">clarify 플러그인의 vague SKILL.md를 Read로 읽어줘</pre><button class="copy-btn absolute top-1.5 right-2 px-2 py-0.5 text-[10px] bg-white/10 text-gray-400 rounded">복사</button></div>
+                    <p class="text-[11px] text-gray-600">▲ 플러그인 구조 분석</p>
+                    <div class="cmd-box"><pre class="bg-dark-950 rounded-lg px-4 py-2 text-xs text-green-400 font-mono cursor-pointer hover:bg-dark-900 transition-colors whitespace-pre-wrap" onclick="copyCmd(this)">templates/clarify-vague.md를 Read로 읽어서 보여줘. 이 템플릿을 기반으로 내 업무에 맞는 clarify 스킬을 만들어줘. .claude/skills/my-clarify/SKILL.md에 저장해줘.</pre><button class="copy-btn absolute top-1.5 right-2 px-2 py-0.5 text-[10px] bg-white/10 text-gray-400 rounded">복사</button></div>
+                    <p class="text-[11px] text-gray-600">▲ 나만의 clarify 스킬 생성</p>
+                </div>
+            </div>
+
+            <div class="border border-white/5 rounded-xl overflow-hidden">
+                <button onclick="toggleBlock(this)" class="w-full px-4 py-3 flex items-center justify-between hover:bg-white/[0.02] transition-colors">
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs px-1.5 py-0.5 rounded bg-white/5 text-gray-400 font-mono">Block 3</span>
+                        <span class="text-sm font-medium text-gray-200">Plugin 심화 + Known/Unknown 4분면 분석</span>
+                    </div>
+                    <span class="text-gray-500 text-xs">▼</span>
+                </button>
+                <div class="block-toggle-content px-4 pb-4">
+                    <div class="flex flex-wrap gap-1.5 mb-2">
+                        <a href="https://code.claude.com/docs/ko/discover-plugins" target="_blank" class="doc-link">📖 플러그인 마켓플레이스</a>
+                    </div>
+                    <p class="text-xs text-gray-500">clarify:unknown으로 전략의 사각지대를 찾습니다. Known Known / Known Unknown / Unknown Known / Unknown Unknown 4분면 프레임워크.</p>
+                </div>
+            </div>
+
+            <div class="border border-white/5 rounded-xl overflow-hidden">
+                <button onclick="toggleBlock(this)" class="w-full px-4 py-3 flex items-center justify-between hover:bg-white/[0.02] transition-colors">
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs px-1.5 py-0.5 rounded bg-white/5 text-gray-400 font-mono">Block 4</span>
+                        <span class="text-sm font-medium text-gray-200">PRD 작성 + GitHub 첫 PR 제출</span>
+                    </div>
+                    <span class="text-gray-500 text-xs">▼</span>
+                </button>
+                <div class="block-toggle-content px-4 pb-4 space-y-2">
+                    <div class="flex flex-wrap gap-1.5 mb-2">
+                        <a href="https://code.claude.com/docs/ko/cli-usage" target="_blank" class="doc-link">📖 CLI 사용법</a>
+                        <a href="https://github.com/team-attention/plugins-for-claude-natives" target="_blank" class="doc-link">📖 AI Native Camp Plugins</a>
+                    </div>
+                    <p class="text-xs text-gray-500 mb-2">캠프에서 만든 스킬 기반으로 PRD를 작성하고, GitHub에 PR을 제출합니다.</p>
+                    <div class="cmd-box"><pre class="bg-dark-950 rounded-lg px-4 py-2 text-xs text-green-400 font-mono cursor-pointer hover:bg-dark-900 transition-colors" onclick="copyCmd(this)">git이 설치되어 있는지, gh CLI가 인증되어 있는지 확인해줘.</pre><button class="copy-btn absolute top-1.5 right-2 px-2 py-0.5 text-[10px] bg-white/10 text-gray-400 rounded">복사</button></div>
+                    <div class="cmd-box"><pre class="bg-dark-950 rounded-lg px-4 py-2 text-xs text-green-400 font-mono cursor-pointer hover:bg-dark-900 transition-colors" onclick="copyCmd(this)">/plugin install git-onboarding</pre><button class="copy-btn absolute top-1.5 right-2 px-2 py-0.5 text-[10px] bg-white/10 text-gray-400 rounded">복사</button></div>
+                    <p class="text-[11px] text-gray-600">▲ Git 초보자용 온보딩 플러그인</p>
+                    <div class="cmd-box"><pre class="bg-dark-950 rounded-lg px-4 py-2 text-xs text-green-400 font-mono cursor-pointer hover:bg-dark-900 transition-colors" onclick="copyCmd(this)">PRD를 내 GitHub repo에 제출해줘. PR까지 만들어줘.</pre><button class="copy-btn absolute top-1.5 right-2 px-2 py-0.5 text-[10px] bg-white/10 text-gray-400 rounded">복사</button></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-6 p-4 rounded-xl bg-amber-500/5 border border-amber-500/20">
+            <p class="text-xs font-semibold text-amber-400 mb-2">📝 Day 3 과제</p>
+            <ul class="text-xs text-gray-400 space-y-1">
+                <li>① Clarify로 Day 1 과제를 재정의 — 처음 vs 지금 비교</li>
+                <li>② AI 사용 시 가장 불편한 점 한 줄로 작성</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════ Day 4 ═══════════════ -->
+<div class="glass rounded-2xl overflow-hidden mb-8">
+    <div class="p-6 lg:p-8">
+        <div class="flex items-start gap-4 mb-2">
+            <div class="w-12 h-12 rounded-xl bg-accent-500 text-white flex items-center justify-center text-lg font-bold shrink-0">4</div>
+            <div>
+                <h2 class="text-xl font-bold">쓸수록 똑똑해지는 환경 만들기</h2>
+                <p class="text-sm text-gray-400 mt-1">정리하고, 복리로 성장하는 시스템 구축</p>
+                <div class="flex items-center gap-3 mt-2 text-xs text-gray-500">
+                    <span>📅 {{ schedule[3].date }}</span>
+                    <span>⏱ ~3시간</span>
+                    <span>💻 온라인</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-6 mb-6 p-4 rounded-xl bg-accent-500/5 border border-accent-500/20">
+            <p class="text-xs font-semibold text-accent-400 mb-2">🚀 Day 4 시작하기</p>
+            <div class="cmd-box"><pre class="bg-dark-950 rounded-lg px-4 py-3 text-sm text-green-400 font-mono cursor-pointer hover:bg-dark-900 transition-colors" onclick="copyCmd(this)">/day4-wrap-and-analyze</pre><button class="copy-btn absolute top-2 right-2 px-2 py-1 text-[10px] bg-white/10 text-gray-400 rounded">복사</button></div>
+        </div>
+
+        <div class="space-y-4">
+            <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">세션 래핑 + 분석 (~60분)</p>
+
+            <div class="border border-white/5 rounded-xl overflow-hidden">
+                <button onclick="toggleBlock(this)" class="w-full px-4 py-3 flex items-center justify-between hover:bg-white/[0.02] transition-colors">
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs px-1.5 py-0.5 rounded bg-white/5 text-gray-400 font-mono">Block 0-2</span>
+                        <span class="text-sm font-medium text-gray-200">멀티 에이전트 이해 + session-wrap 만들기 + 실행</span>
+                    </div>
+                    <span class="text-gray-500 text-xs">▼</span>
+                </button>
+                <div class="block-toggle-content px-4 pb-4 space-y-2">
+                    <div class="flex flex-wrap gap-1.5 mb-2">
+                        <a href="https://code.claude.com/docs/ko/sub-agents" target="_blank" class="doc-link">📖 Sub-agents (멀티 에이전트)</a>
+                        <a href="https://code.claude.com/docs/ko/skills" target="_blank" class="doc-link">📖 Skills 작성법</a>
+                    </div>
+                    <p class="text-xs text-gray-500 mb-2">4개 전문가 에이전트가 동시에 분석하는 session-wrap 스킬을 직접 만듭니다.</p>
+                    <div class="grid grid-cols-2 gap-2 mb-3">
+                        <div class="p-2 rounded-lg bg-white/[0.02] border border-white/5 text-center">
+                            <p class="text-xs font-medium text-gray-300">📄 doc-updater</p>
+                            <p class="text-[10px] text-gray-500">문서 업데이트 찾기</p>
+                        </div>
+                        <div class="p-2 rounded-lg bg-white/[0.02] border border-white/5 text-center">
+                            <p class="text-xs font-medium text-gray-300">⚡ automation-scout</p>
+                            <p class="text-[10px] text-gray-500">자동화 제안</p>
+                        </div>
+                        <div class="p-2 rounded-lg bg-white/[0.02] border border-white/5 text-center">
+                            <p class="text-xs font-medium text-gray-300">📚 learning-extractor</p>
+                            <p class="text-[10px] text-gray-500">배운 것 정리</p>
+                        </div>
+                        <div class="p-2 rounded-lg bg-white/[0.02] border border-white/5 text-center">
+                            <p class="text-xs font-medium text-gray-300">🔮 followup-suggester</p>
+                            <p class="text-[10px] text-gray-500">다음 할 일 제안</p>
+                        </div>
+                    </div>
+                    <div class="cmd-box"><pre class="bg-dark-950 rounded-lg px-4 py-2 text-xs text-green-400 font-mono cursor-pointer hover:bg-dark-900 transition-colors whitespace-pre-wrap" onclick="copyCmd(this)">나만의 session-wrap 스킬을 만들 거야. .claude/skills/my-session-wrap/ 폴더를 만들고, SKILL.md 파일을 생성해줘. 먼저 빈 파일로 시작하자.</pre><button class="copy-btn absolute top-1.5 right-2 px-2 py-0.5 text-[10px] bg-white/10 text-gray-400 rounded">복사</button></div>
+                    <p class="text-[11px] text-gray-600">▲ session-wrap 스킬 시작</p>
+                </div>
+            </div>
+
+            <div class="border border-white/5 rounded-xl overflow-hidden">
+                <button onclick="toggleBlock(this)" class="w-full px-4 py-3 flex items-center justify-between hover:bg-white/[0.02] transition-colors">
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs px-1.5 py-0.5 rounded bg-white/5 text-gray-400 font-mono">Block 3-4</span>
+                        <span class="text-sm font-medium text-gray-200">history-insight + session-analyzer</span>
+                    </div>
+                    <span class="text-gray-500 text-xs">▼</span>
+                </button>
+                <div class="block-toggle-content px-4 pb-4">
+                    <div class="flex flex-wrap gap-1.5 mb-2">
+                        <a href="https://code.claude.com/docs/ko/memory" target="_blank" class="doc-link">📖 Memory (세션 기록)</a>
+                        <a href="https://code.claude.com/docs/ko/skills" target="_blank" class="doc-link">📖 Skills (검증)</a>
+                    </div>
+                    <p class="text-xs text-gray-500">과거 세션 기록 분석(history-insight)과 스킬 실행 검증(session-analyzer)을 체험합니다.</p>
+                </div>
+            </div>
+
+            <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider pt-2">콘텐츠 소화 파이프라인 (~45분)</p>
+
+            <div class="border border-white/5 rounded-xl overflow-hidden">
+                <button onclick="toggleBlock(this)" class="w-full px-4 py-3 flex items-center justify-between hover:bg-white/[0.02] transition-colors">
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs px-1.5 py-0.5 rounded bg-white/5 text-gray-400 font-mono">Block 5</span>
+                        <span class="text-sm font-medium text-gray-200">콘텐츠 소화 4종 체험</span>
+                    </div>
+                    <span class="text-gray-500 text-xs">▼</span>
+                </button>
+                <div class="block-toggle-content px-4 pb-4 space-y-2">
+                    <div class="flex flex-wrap gap-1.5 mb-2">
+                        <a href="https://code.claude.com/docs/ko/skills" target="_blank" class="doc-link">📖 Skills (체이닝)</a>
+                        <a href="https://code.claude.com/docs/ko/sub-agents" target="_blank" class="doc-link">📖 Sub-agents (병렬 실행)</a>
+                    </div>
+                    <p class="text-xs text-gray-500 mb-2">트윗·영상·PDF를 가져와서 Quiz-First 방식으로 소화하는 파이프라인을 체험합니다.</p>
+                    <div class="cmd-box"><pre class="bg-dark-950 rounded-lg px-4 py-2 text-xs text-green-400 font-mono cursor-pointer hover:bg-dark-900 transition-colors" onclick="copyCmd(this)">이 트윗을 요약-인사이트-전체 번역 해줘: [X/Twitter URL]</pre><button class="copy-btn absolute top-1.5 right-2 px-2 py-0.5 text-[10px] bg-white/10 text-gray-400 rounded">복사</button></div>
+                    <p class="text-[11px] text-gray-600">▲ fetch-tweet: 트윗 가져오기</p>
+                    <div class="cmd-box"><pre class="bg-dark-950 rounded-lg px-4 py-2 text-xs text-green-400 font-mono cursor-pointer hover:bg-dark-900 transition-colors" onclick="copyCmd(this)">/content-digest</pre><button class="copy-btn absolute top-1.5 right-2 px-2 py-0.5 text-[10px] bg-white/10 text-gray-400 rounded">복사</button></div>
+                    <p class="text-[11px] text-gray-600">▲ Quiz-First 학습 (퀴즈 먼저 → 요약)</p>
+                    <div class="cmd-box"><pre class="bg-dark-950 rounded-lg px-4 py-2 text-xs text-green-400 font-mono cursor-pointer hover:bg-dark-900 transition-colors" onclick="copyCmd(this)">/compound</pre><button class="copy-btn absolute top-1.5 right-2 px-2 py-0.5 text-[10px] bg-white/10 text-gray-400 rounded">복사</button></div>
+                    <p class="text-[11px] text-gray-600">▲ 인사이트를 구조화된 문서로 축적</p>
+                    <div class="cmd-box"><pre class="bg-dark-950 rounded-lg px-4 py-2 text-xs text-green-400 font-mono cursor-pointer hover:bg-dark-900 transition-colors" onclick="copyCmd(this)">/team-assemble 내 프로젝트의 README를 분석하고, 개선점을 제안하고, 실제로 수정해줘</pre><button class="copy-btn absolute top-1.5 right-2 px-2 py-0.5 text-[10px] bg-white/10 text-gray-400 rounded">복사</button></div>
+                    <p class="text-[11px] text-gray-600">▲ 전문가 팀 자동 구성</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-6 p-4 rounded-xl bg-amber-500/5 border border-amber-500/20">
+            <p class="text-xs font-semibold text-amber-400 mb-2">📝 Day 4 과제</p>
+            <p class="text-xs text-gray-400">과제 제출</p>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════ Day 5 ═══════════════ -->
+<div class="glass rounded-2xl overflow-hidden mb-8">
+    <div class="p-6 lg:p-8">
+        <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-xl bg-orange-500/80 text-white flex items-center justify-center text-lg font-bold shrink-0">5</div>
+            <div>
+                <h2 class="text-xl font-bold">최종 산출물 제출 및 공유</h2>
+                <p class="text-sm text-gray-400 mt-1">4일간의 결과물을 발표하고 공유합니다</p>
+                <div class="flex items-center gap-3 mt-2 text-xs text-gray-500">
+                    <span>📅 {{ schedule[4].date }}</span>
+                    <span>⏱ 종일</span>
+                    <span class="px-2 py-0.5 rounded-full bg-orange-500/10 text-orange-400">🏢 오프라인</span>
+                </div>
+                <div class="mt-4 p-3 rounded-lg border border-white/5">
+                    <p class="text-xs text-gray-400">캠프 기간 동안 만든 스킬, 워크플로우, 산출물을 발표하고 피드백을 주고받습니다.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function copyCmd(el) {
+    const text = el.textContent.trim();
+    navigator.clipboard.writeText(text).then(() => {
+        const original = el.style.borderColor;
+        el.style.borderColor = 'rgba(74, 222, 128, 0.4)';
+        const btn = el.parentElement.querySelector('.copy-btn');
+        if (btn) { btn.textContent = '복사됨!'; btn.style.opacity = '1'; }
+        setTimeout(() => {
+            el.style.borderColor = original;
+            if (btn) { btn.textContent = '복사'; btn.style.opacity = ''; }
+        }, 1500);
+    });
+}
+
+function toggleBlock(btn) {
+    const content = btn.nextElementSibling;
+    const arrow = btn.querySelector('span:last-child');
+    content.classList.toggle('open');
+    arrow.textContent = content.classList.contains('open') ? '▲' : '▼';
+}
+</script>
+{% endblock %}
