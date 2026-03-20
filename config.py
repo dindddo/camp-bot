@@ -21,33 +21,33 @@ CAMP_SCHEDULE = [
     {
         "day": 2,
         "date": "2026-03-23",
-        "date_end": None,
+        "date_end": "2026-03-25",
         "title": "Day 2 학습 + 과제 제출",
         "type": "online",
-        "duration": "종일",
+        "duration": "3일",
         "deliverable": "과제 제출",
     },
     {
         "day": 3,
-        "date": "2026-03-24",
-        "date_end": None,
+        "date": "2026-03-26",
+        "date_end": "2026-03-28",
         "title": "Day 3 학습 + 과제 제출",
         "type": "online",
-        "duration": "종일",
+        "duration": "3일",
         "deliverable": "과제 제출",
     },
     {
         "day": 4,
-        "date": "2026-03-25",
-        "date_end": None,
+        "date": "2026-03-29",
+        "date_end": "2026-03-31",
         "title": "Day 4 학습 + 과제 제출",
         "type": "online",
-        "duration": "종일",
+        "duration": "3일",
         "deliverable": "과제 제출",
     },
     {
         "day": 5,
-        "date": "2026-03-27",
+        "date": "2026-04-03",
         "date_end": None,
         "title": "최종 산출물 제출 및 공유",
         "type": "offline",
@@ -78,7 +78,7 @@ class Config:
     # Camp info
     CAMP_NAME = os.getenv("CAMP_NAME", "Sentbe AI Native Camp")
     CAMP_START_DATE = date(2026, 3, 14)
-    CAMP_END_DATE = date(2026, 3, 27)
+    CAMP_END_DATE = date(2026, 4, 3)
     DEFAULT_CHANNEL = os.getenv("DEFAULT_CHANNEL", "general")
 
     @classmethod
