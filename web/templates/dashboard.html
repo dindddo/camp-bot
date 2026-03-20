@@ -65,25 +65,22 @@
 </div>
 
 <!-- Stats Bar -->
-<div class="flex items-center justify-center gap-8 mb-10">
-    <div class="text-center">
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-10 max-w-3xl mx-auto">
+    <div data-glow style="--base: 240; --spread: 100" class="text-center px-5 py-5 backdrop-blur-sm">
         <div class="text-3xl font-bold">{% if camp_day > 0 %}{{ camp_day }}{% else %}—{% endif %}<span class="text-base font-normal text-gray-500">/5</span></div>
-        <div class="text-xs text-gray-500 mt-1">현재 Day</div>
+        <div class="text-xs text-gray-500 mt-1.5">현재 Day</div>
     </div>
-    <div class="w-px h-10 bg-white/10"></div>
-    <div class="text-center">
+    <div data-glow style="--base: 280; --spread: 100" class="text-center px-5 py-5 backdrop-blur-sm">
         <div class="text-3xl font-bold">{{ stats.participants.total }}</div>
-        <div class="text-xs text-gray-500 mt-1">참가자</div>
+        <div class="text-xs text-gray-500 mt-1.5">참가자</div>
     </div>
-    <div class="w-px h-10 bg-white/10"></div>
-    <div class="text-center">
+    <div data-glow style="--base: 160; --spread: 100" class="text-center px-5 py-5 backdrop-blur-sm">
         <div class="text-3xl font-bold">{{ format_tokens(usage_summary.total_tokens) }}</div>
-        <div class="text-xs text-gray-500 mt-1">총 토큰</div>
+        <div class="text-xs text-gray-500 mt-1.5">총 토큰</div>
     </div>
-    <div class="w-px h-10 bg-white/10"></div>
-    <div class="text-center">
+    <div data-glow style="--base: 30; --spread: 100" class="text-center px-5 py-5 backdrop-blur-sm">
         <div class="text-3xl font-bold">D-{{ days_remaining }}</div>
-        <div class="text-xs text-gray-500 mt-1">종료까지</div>
+        <div class="text-xs text-gray-500 mt-1.5">종료까지</div>
     </div>
 </div>
 

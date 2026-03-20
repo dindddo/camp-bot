@@ -23,6 +23,63 @@
         .glass { background: rgba(255,255,255,0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.06); }
         .rank-row:hover { background: rgba(255,255,255,0.04); }
         .rank-row { transition: background 0.15s; }
+
+        /* Spotlight Glow Card */
+        [data-glow] {
+            --border: 2;
+            --radius: 14;
+            --border-size: calc(var(--border) * 1px);
+            --spotlight-size: 200px;
+            --hue: calc(var(--base, 240) + (var(--xp, 0) * var(--spread, 200)));
+            background-image: radial-gradient(
+                var(--spotlight-size) var(--spotlight-size) at
+                calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px),
+                hsl(var(--hue) 100% 70% / 0.1), transparent
+            );
+            background-color: hsl(0 0% 60% / 0.06);
+            background-size: calc(100% + (2 * var(--border-size))) calc(100% + (2 * var(--border-size)));
+            background-position: 50% 50%;
+            background-attachment: fixed;
+            border: var(--border-size) solid hsl(0 0% 60% / 0.12);
+            position: relative;
+            border-radius: calc(var(--radius) * 1px);
+            transition: box-shadow 0.3s;
+        }
+        [data-glow]:hover {
+            box-shadow: 0 0 30px -10px hsl(var(--hue) 80% 60% / 0.3);
+        }
+        [data-glow]::before,
+        [data-glow]::after {
+            pointer-events: none;
+            content: "";
+            position: absolute;
+            inset: calc(var(--border-size) * -1);
+            border: var(--border-size) solid transparent;
+            border-radius: calc(var(--radius) * 1px);
+            background-attachment: fixed;
+            background-size: calc(100% + (2 * var(--border-size))) calc(100% + (2 * var(--border-size)));
+            background-repeat: no-repeat;
+            background-position: 50% 50%;
+            mask: linear-gradient(transparent, transparent), linear-gradient(white, white);
+            -webkit-mask: linear-gradient(transparent, transparent), linear-gradient(white, white);
+            mask-clip: padding-box, border-box;
+            -webkit-mask-clip: padding-box, border-box;
+            mask-composite: intersect;
+            -webkit-mask-composite: source-in;
+        }
+        [data-glow]::before {
+            background-image: radial-gradient(
+                150px 150px at calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px),
+                hsl(var(--hue) 100% 50% / 1), transparent 100%
+            );
+            filter: brightness(2);
+        }
+        [data-glow]::after {
+            background-image: radial-gradient(
+                100px 100px at calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px),
+                hsl(0 100% 100% / 0.8), transparent 100%
+            );
+        }
     </style>
     {% block head %}{% endblock %}
 </head>
@@ -72,5 +129,16 @@
             <span>Powered by Slack Bot + Claude AI</span>
         </div>
     </footer>
+    <!-- Spotlight Glow Pointer Tracking -->
+    <script>
+        document.addEventListener('pointermove', (e) => {
+            const { clientX: x, clientY: y } = e;
+            document.querySelectorAll('[data-glow]').forEach(el => {
+                el.style.setProperty('--x', x.toFixed(2));
+                el.style.setProperty('--xp', (x / window.innerWidth).toFixed(2));
+                el.style.setProperty('--y', y.toFixed(2));
+            });
+        });
+    </script>
 </body>
 </html>
